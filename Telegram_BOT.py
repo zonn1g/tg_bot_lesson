@@ -1,8 +1,8 @@
 import telebot
-from pdf import raspisanie,teacher_search
+from pdf import raspisanie, teacher_search
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('ENTER YOUR TG_TOKEN')
+bot = telebot.TeleBot('7637875910:AAFzR8YC2ZijGjOjT_zlQGdSPLme20vvMhs')
 user_groups = {}
 group = ""
 teacher=""
@@ -118,10 +118,22 @@ def callback(query):
 
     # Обработка выбора дня
     elif query.data in ["понедельник", "вторник", "среда", "четверг", "пятница"]:
-        print(2)
-        day = query.data
-        raspis = raspisanie(day, group)
-        set_schedule = "\n".join(str(i) for i in raspis)
+        global teacher
+
+        if teacher != "":
+            print(1)
+            day = query.data
+            raspis = teacher_search(teacher,day)
+            teacher=""
+            set_schedule = "\n".join(str(i) for i in raspis)
+            raspis = ""
+        else:
+            print(2)
+            day = query.data
+            raspis = raspisanie(day, group)
+            set_schedule = "\n".join(str(i) for i in raspis)
+            raspis = ""
+
         bot.send_message(user_id, set_schedule)
 
     # Удаление сообщения после выбора

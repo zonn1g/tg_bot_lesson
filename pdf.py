@@ -38,15 +38,27 @@ def raspisanie(day, group):
                     array.append(table[nomber+j][index_group])
 
     return array
-def teacher_search(text):
+def teacher_search(text,day):
     mass_pach = vk()
+    array=[]
+    nomber = 0
 
-    table=[]
+
     for masss in mass_pach:
 
         with pdfplumber.open(masss['name']) as pdf:
             for page_number, page in enumerate(pdf.pages, start=1):
                 table = page.extract_table()
-                #print(table)
-    return  table
+                #print(table[3])
+                for i in range(3):
+                    for value in table[3+(i*2)]:
+                       # print(value)
+                        value = str(value)
+                        if text in value:
+                            index_teacher = table[3+(i*2)].index(value)
+                            #print(table[5])
+                            array.append(f'{table[2+(i*2)][index_teacher]} {table[1][index_teacher]}')
+
+
+    return array
 

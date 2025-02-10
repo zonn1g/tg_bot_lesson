@@ -3,7 +3,7 @@ from pathlib import Path
 import requests
 import wget
 def vk():
-    access_token = 'ENTER YOUR VK_TOKEN'
+    access_token = '0236de0a0236de0a0236de0a44011e16a5002360236de0a65976f3262964096e5f289e9'
     url = f'https://api.vk.com/method/board.getComments?group_id=158830121&topic_id=37235959&access_token={access_token}&v=5.1999'
     response = requests.get(url)
     mass = response.json()['response']['items'][response.json()['response']['count']-1]
