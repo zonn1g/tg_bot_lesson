@@ -69,7 +69,6 @@ def get_text_messanger(message):
 def day_teacher(message,text):
     global teacher
     teacher = text
-    print(1)
     user_id = message.from_user.id
     markup = InlineKeyboardMarkup()
     button1 = InlineKeyboardButton("понедельник", callback_data="понедельник")
