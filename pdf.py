@@ -49,7 +49,13 @@ def teacher_search(text,day):
         with pdfplumber.open(masss['name']) as pdf:
             for page_number, page in enumerate(pdf.pages, start=1):
                 table = page.extract_table()
-                #print(table[3])
+
+                nomber = 0
+                for i in range(1, len(table)):
+                    if day in str(table[i][0]):
+                        nomber = i
+                        break
+
                 for i in range(3):
                     for value in table[3+(i*2)]:
                        # print(value)
