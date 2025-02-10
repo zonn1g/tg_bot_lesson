@@ -2,7 +2,7 @@ import telebot
 from pdf import raspisanie,teacher_search
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-bot = telebot.TeleBot('7637875910:AAFzR8YC2ZijGjOjT_zlQGdSPLme20vvMhs')
+bot = telebot.TeleBot('ENTER YOUR TG_TOKEN')
 user_groups = {}
 group = ""
 teacher=""
