@@ -126,13 +126,14 @@ def callback(query):
         if teacher != "":
             day = query.data
             raspis = teacher_search(teacher,day)
-            teacher=""
+            teacher = ""
             set_schedule = "\n".join(str(i) for i in raspis)
-            raspis=""
+            raspis = ""
         else:
             day = query.data
             raspis = raspisanie(day, group)
             set_schedule = "\n".join(str(i) for i in raspis)
+            raspis = ""
         bot.send_message(user_id, set_schedule)
     # Удаление сообщения после выбора
     bot.delete_message(user_id, query.message.message_id)
