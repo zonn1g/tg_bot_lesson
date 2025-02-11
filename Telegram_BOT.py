@@ -6,7 +6,16 @@ bot = telebot.TeleBot('7637875910:AAFzR8YC2ZijGjOjT_zlQGdSPLme20vvMhs')
 user_groups = {}
 group = ""
 teacher=""
-mass_teacher = ['Трусов', 'Лаптев']
+mass_teacher = [
+  "Абакумов", "Афанасов", "Байлюк", "Башлачева", "Большакова", "Бурцев",
+  "Вагнер", "Глинский", "Губенский", "Дудникова", "Елантьева", "Ефимов",
+  "Заусаева", "Карпова", "Кирпинская", "Кирюшина", "Ковалёв", "Ковалёва",
+  "Котова", "Красота", "Крейдер", "Кучин", "Лаптев", "Лахтионов", "Лахтионова",
+  "Лутьянов", "Трусов", "Новикова", "Панченко", "Ревякина", "Романов", "Рудакова",
+  "Савинко", "Сажина", "Соколова", "Старосельская", "Стрекаловский", "Суханова",
+  "Тимошенко", "Федухина", "Харёва", "Цилибина", "Чевыкалова", "Шестакова",
+  "Шиловский", "Юшкевич"
+]
 
 @bot.message_handler(content_types=['text', 'document', 'audio'])
 def get_text_messanger(message):
@@ -57,13 +66,9 @@ def get_text_messanger(message):
         bot.send_message(user_id, 'Я умею выводить пары на день, напишите /lesson или /teacher')
     else:
         if message.text in mass_teacher:
-            pass
-            #message = teacher_search(message.text)
             message = day_teacher(message,message.text)
-            #print(message)
-#            set_schedule = "\n".join(str(i) for i in message)
-          #  bot.send_message(user_id, set_schedule)
-        #bot.send_message(user_id, 'Я тебя не понимаю. Напиши /help')
+        else:
+            bot.send_message(user_id, 'Я тебя не понимаю. Напиши /help')
 
 @bot.message_handler(content_types=['text', 'document', 'audio'])
 def day_teacher(message,text):
@@ -84,7 +89,6 @@ def day_teacher(message,text):
 def callback(query):
     user_id = query.from_user.id
     global group
-
     # Условие для групп первой смены
     if (query.data == "ИС-24 (РА)" or query.data == "ИС-24 (В)" or query.data == "ИС-11" or query.data == "ПД-13"
             or query.data == "ИС-14" or query.data == "ЮР-15" or query.data == "ТО-16" or query.data == "ЭБ-17"
@@ -102,7 +106,7 @@ def callback(query):
         markup.add(button1, button2, button3, button4, button5)
         bot.send_message(user_id, "Выберите день:", reply_markup=markup)
 
-    # Условие для групп второй смены
+# Условие для групп второй смены
     elif (query.data == "ИС-34 (В)" or query.data == "ИС-34 (РА)" or query.data == "ПД-33" or query.data == "МС-21"
           or query.data == "МД-22" or query.data == "ПС-35" or query.data == "ЭБ-37"):
 
@@ -116,27 +120,20 @@ def callback(query):
         markup.add(button1, button2, button3, button4, button5)
         bot.send_message(user_id, "Выберите день:", reply_markup=markup)
 
-    # Обработка выбора дня
+# Обработка выбора дня
     elif query.data in ["понедельник", "вторник", "среда", "четверг", "пятница"]:
         global teacher
-
         if teacher != "":
-            print(1)
             day = query.data
             raspis = teacher_search(teacher,day)
             teacher=""
             set_schedule = "\n".join(str(i) for i in raspis)
-            raspis = ""
+            raspis=""
         else:
-            print(2)
             day = query.data
             raspis = raspisanie(day, group)
             set_schedule = "\n".join(str(i) for i in raspis)
-            raspis = ""
-
         bot.send_message(user_id, set_schedule)
-
     # Удаление сообщения после выбора
     bot.delete_message(user_id, query.message.message_id)
-
 bot.polling(none_stop=True, interval=0)
